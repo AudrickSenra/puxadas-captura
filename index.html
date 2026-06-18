@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Puxadas • Consultas Rápidas</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      background: #0a0a0f; 
+      color: #e0e0e0; 
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+    .bg-glow {
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(0,255,136,0.03) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 50%, rgba(255,102,0,0.03) 0%, transparent 50%);
+      animation: pulse 8s ease-in-out infinite;
+      z-index: -1;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .hero h1 .green { color: #00ff88; }
+    .hero h1 .orange { color: #ff6600; }
+    .hero p {
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      color: #a0a0b0;
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+    .form-box {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 24px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 0 60px rgba(0,255,136,0.05);
+    }
+    .form-box h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .form-box .free-badge {
+      display: inline-block;
+      background: #00ff88;
+      color: #0a0a0f;
+      font-weight: 800;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.05em;
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+      text-align: left;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: #b0b0c0;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: 0.2s;
+    }
+    .form-group input:focus {
+      border-color: #00ff88;
+      box-shadow: 0 0 0 3px rgba(0,255,136,0.1);
+    }
+    .form-group input::placeholder { color: #555; }
+    .btn-primary {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, #00ff88, #00cc6a);
+      border: none;
+      border-radius: 12px;
+      color: #0a0a0f;
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,255,136,0.25);
+    }
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .success-msg {
+      display: none;
+      background: rgba(0,255,136,0.1);
+      border: 1px solid #00ff88;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      color: #00ff88;
+      font-weight: 600;
+    }
+    .success-msg .check {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    section {
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    section h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+    section h2 .green { color: #00ff88; }
+    section > p {
+      text-align: center;
+      color: #a0a0b0;
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .step-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      transition: 0.2s;
+    }
+    .step-card:hover {
+      border-color: #00ff88;
+      transform: translateY(-4px);
+    }
+    .step-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .step-card .num {
+      display: inline-block;
+      background: #00ff88;
+      color: #0a0a0f;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-weight: 800;
+      line-height: 32px;
+      margin-bottom: 0.75rem;
+    }
+    .step-card h3 { margin-bottom: 0.5rem; }
+    .step-card p { color: #a0a0b0; font-size: 0.9rem; }
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .audience-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: 0.2s;
+    }
+    .audience-item:hover {
+      border-color: #ff6600;
+    }
+    .audience-item .emoji { font-size: 2rem; margin-bottom: 0.5rem; }
+    .audience-item h4 { font-size: 1rem; }
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .plan-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      transition: 0.2s;
+      position: relative;
+    }
+    .plan-card.featured {
+      border-color: #00ff88;
+      background: rgba(0,255,136,0.05);
+    }
+    .plan-card.featured::before {
+      content: 'MAIS VENDIDO';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #00ff88;
+      color: #0a0a0f;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 0.25rem 1rem;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+    }
+    .plan-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .plan-card .price {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+    }
+    .plan-card .price .green { color: #00ff88; }
+    .plan-card .price .orange { color: #ff6600; }
+    .plan-card .price small {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #a0a0b0;
+    }
+    .plan-card ul {
+      list-style: none;
+      text-align: left;
+      margin: 1.5rem 0;
+    }
+    .plan-card ul li {
+      padding: 0.4rem 0;
+      font-size: 0.9rem;
+      color: #c0c0d0;
+    }
+    .plan-card ul li::before {
+      content: '✅ ';
+      color: #00ff88;
+    }
+    .plan-card .btn-plan {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      background: transparent;
+      border: 2px solid;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.2s;
+      text-decoration: none;
+    }
+    .plan-card .btn-plan.green {
+      border-color: #00ff88;
+      color: #00ff88;
+    }
+    .plan-card .btn-plan.green:hover {
+      background: #00ff88;
+      color: #0a0a0f;
+    }
+    .plan-card .btn-plan.orange {
+      border-color: #ff6600;
+      color: #ff6600;
+    }
+    .plan-card .btn-plan.orange:hover {
+      background: #ff6600;
+      color: #0a0a0f;
+    }
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    footer a {
+      color: #00ff88;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    footer a:hover { text-decoration: underline; }
+    footer p { color: #555; font-size: 0.85rem; margin-top: 0.5rem; }
+    @media (max-width: 600px) {
+      .form-box { padding: 1.5rem; }
+      section { padding: 3rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+
+  <section class="hero">
+    <h1>
+      <span class="green">CONSULTE</span> CNPJ,<br>
+      SCORE <span class="orange">& MAIS</span>
+    </h1>
+    <p>A ferramenta que empreendedores usam para verificar clientes antes de vender. Tudo pelo Telegram.</p>
+    <div class="form-box" id="formBox">
+      <h2>Comece agora — <span class="green">grátis</span></h2>
+      <span class="free-badge">🚀 Primeira consulta grátis</span>
+      <form id="leadForm">
+        <div class="form-group">
+          <label>Seu nome</label>
+          <input type="text" id="nome" placeholder="Ex: João Silva" required>
+        </div>
+        <div class="form-group">
+          <label>WhatsApp</label>
+          <input type="tel" id="whatsapp" placeholder="(11) 99999-8888" required>
+        </div>
+        <div class="form-group">
+          <label>Melhor email</label>
+          <input type="email" id="email" placeholder="joao@email.com" required>
+        </div>
+        <button type="submit" class="btn-primary" id="submitBtn">QUERO MINHA CONSULTA GRÁTIS</button>
+      </form>
+      <div class="success-msg" id="successMsg">
+        <span class="check">✅</span>
+        Recebemos seus dados! Em instantes você receberá sua consulta grátis no WhatsApp 😉
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Como <span class="green">funciona</span></h2>
+    <p>3 passos simples para começar</p>
+    <div class="steps">
+      <div class="step-card">
+        <div class="icon">📱</div>
+        <div class="num">1</div>
+        <h3>Preencha o formulário</h3>
+        <p>Seus dados para receber sua consulta grátis</p>
+      </div>
+      <div class="step-card">
+        <div class="icon">🤖</div>
+        <div class="num">2</div>
+        <h3>Entre no bot do Telegram</h3>
+        <p>Você receberá o link direto para começar</p>
+      </div>
+      <div class="step-card">
+        <div class="icon">⚡</div>
+        <div class="num">3</div>
+        <h3>Consulte em segundos</h3>
+        <p>Digite /cnpj 123... e veja o resultado na hora</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Para quem é <span class="orange">feito</span></h2>
+    <p>Se você vende, aluga, presta serviço ou empresta — precisa disso</p>
+    <div class="audience-grid">
+      <div class="audience-item">
+        <div class="emoji">🏪</div>
+        <h4>Lojistas</h4>
+      </div>
+      <div class="audience-item">
+        <div class="emoji">📦</div>
+        <h4>MEIs</h4>
+      </div>
+      <div class="audience-item">
+        <div class="emoji">🚗</div>
+        <h4>Motoristas de app</h4>
+      </div>
+      <div class="audience-item">
+        <div class="emoji">🏠</div>
+        <h4>Corretores</h4>
+      </div>
+      <div class="audience-item">
+        <div class="emoji">💼</div>
+        <h4>Autônomos</h4>
+      </div>
+      <div class="audience-item">
+        <div class="emoji">💰</div>
+        <h4>Financeiras</h4>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Escolha seu <span class="green">plano</span></h2>
+    <p>Sem mensalidade. Pague por consulta ou desbloqueie tudo</p>
+    <div class="plans">
+      <div class="plan-card">
+        <h3>PUXADAS CNPJ</h3>
+        <div class="price"><span class="green">R$10</span> <small>/por consulta</small></div>
+        <ul>
+          <li>CNPJ completo (situação, endereço, CNAE)</li>
+          <li>CPF do próprio titular</li>
+          <li>Validação de identidade</li>
+          <li>Suporte via Telegram</li>
+        </ul>
+        <a href="https://t.me/puxadasdotiktok_bot" target="_blank" class="btn-plan green">QUERO ESSE</a>
+      </div>
+
+      <div class="plan-card featured">
+        <h3>PUXADAS SCORE</h3>
+        <div class="price"><span class="green">R$15</span> <small>/por consulta</small></div>
+        <ul>
+          <li>Tudo do plano CNPJ</li>
+          <li>Score de crédito completo</li>
+          <li>Histórico de consultas</li>
+          <li>Painel web incluso</li>
+        </ul>
+        <a href="https://t.me/puxadasdotiktok_bot" target="_blank" class="btn-plan green">QUERO ESSE</a>
+      </div>
+
+      <div class="plan-card">
+        <h3>PUXADAS FULL</h3>
+        <div class="price"><span class="orange">R$25</span> <small>/acesso total</small></div>
+        <ul>
+          <li>Tudo dos planos anteriores</li>
+          <li>Consultas ilimitadas por 30 dias</li>
+          <li>Suporte prioritário</li>
+          <li>Relatórios em PDF</li>
+        </ul>
+        <a href="https://t.me/puxadasdotiktok_bot" target="_blank" class="btn-plan orange">QUERO ESSE</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <a href="https://t.me/puxadasdotiktok_bot" target="_blank">🤖 Ir para o @puxadasdotiktok_bot</a>
+    <p>© 2026 Puxadas • Consultas rápidas pelo Telegram</p>
+  </footer>
+
+  <script>
+    const TOKEN = '8831588018:AAH2MJHBRZadC8AahYP_8ySMDwA-o-rVaJw';
+    const CHAT_ID = '@puxadasdotiktok_bot';
+
+    document.getElementById('leadForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.textContent = 'ENVIANDO...';
+
+      const nome = document.getElementById('nome').value.trim();
+      const whatsapp = document.getElementById('whatsapp').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      const msg = `🆕 *NOVO LEAD PUXADAS*\n\n👤 Nome: ${nome}\n📱 WhatsApp: ${whatsapp}\n📧 Email: ${email}`;
+
+      try {
+        const resp = await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: CHAT_ID,
+            text: msg,
+            parse_mode: 'Markdown'
+          })
+        });
+
+        if (resp.ok) {
+          document.getElementById('formBox').innerHTML = `
+            <div class="success-msg" style="display:block">
+              <span class="check">✅</span>
+              Recebemos seus dados! Em instantes você receberá sua consulta grátis no WhatsApp 😉
+            </div>
+          `;
+        } else {
+          alert('Erro ao enviar. Tente novamente ou me chame direto no Telegram.');
+          btn.disabled = false;
+          btn.textContent = 'QUERO MINHA CONSULTA GRÁTIS';
+        }
+      } catch(err) {
+        alert('Erro de conexão. Verifique sua internet e tente de novo.');
+        btn.disabled = false;
+        btn.textContent = 'QUERO MINHA CONSULTA GRÁTIS';
+      }
+    });
+  </script>
+</body>
+</html>
