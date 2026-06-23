@@ -51,95 +51,24 @@
       max-width: 600px;
       margin-bottom: 2rem;
     }
-    .form-box {
-      background: rgba(255,255,255,0.04);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 24px;
-      padding: 2.5rem;
-      width: 100%;
-      max-width: 480px;
-      box-shadow: 0 0 60px rgba(0,255,136,0.05);
-    }
-    .form-box h2 {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-    .form-box .free-badge {
+    .btn-hero {
       display: inline-block;
-      background: #00ff88;
-      color: #0a0a0f;
-      font-weight: 800;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      padding: 0.25rem 0.75rem;
-      border-radius: 100px;
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.05em;
-    }
-    .form-group {
-      margin-bottom: 1.25rem;
-      text-align: left;
-    }
-    .form-group label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 0.35rem;
-      color: #b0b0c0;
-    }
-    .form-group input {
-      width: 100%;
-      padding: 0.9rem 1.2rem;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      color: #fff;
-      font-size: 1rem;
-      outline: none;
-      transition: 0.2s;
-    }
-    .form-group input:focus {
-      border-color: #00ff88;
-      box-shadow: 0 0 0 3px rgba(0,255,136,0.1);
-    }
-    .form-group input::placeholder { color: #555; }
-    .btn-primary {
-      width: 100%;
-      padding: 1rem;
+      padding: 1.2rem 3rem;
       background: linear-gradient(135deg, #00ff88, #00cc6a);
       border: none;
-      border-radius: 12px;
+      border-radius: 16px;
       color: #0a0a0f;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 800;
       cursor: pointer;
       transition: 0.2s;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      text-decoration: none;
     }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(0,255,136,0.25);
-    }
-    .btn-primary:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-    .success-msg {
-      display: none;
-      background: rgba(0,255,136,0.1);
-      border: 1px solid #00ff88;
-      border-radius: 12px;
-      padding: 1.5rem;
-      text-align: center;
-      color: #00ff88;
-      font-weight: 600;
-    }
-    .success-msg .check {
-      font-size: 2.5rem;
-      display: block;
-      margin-bottom: 0.5rem;
+    .btn-hero:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0,255,136,0.3);
     }
     section {
       padding: 5rem 2rem;
@@ -311,7 +240,7 @@
     footer a:hover { text-decoration: underline; }
     footer p { color: #555; font-size: 0.85rem; margin-top: 0.5rem; }
     @media (max-width: 600px) {
-      .form-box { padding: 1.5rem; }
+      .hero { padding: 2rem 1rem; }
       section { padding: 3rem 1rem; }
     }
   </style>
@@ -321,56 +250,40 @@
 
   <section class="hero">
     <h1>
-      <span class="green">CONSULTE</span> CNPJ,<br>
-      SCORE <span class="orange">& MAIS</span>
+      <span class="green">CONSULTE</span> PELO NOME, CPF/CNPJ,<br>
+      TELEFONE OU PLACA. <span class="orange">DE CRÉDITO</span>
     </h1>
     <p>A ferramenta que empreendedores usam para verificar clientes antes de vender. Tudo pelo Telegram.</p>
-    <div class="form-box" id="formBox">
-      <h2>Comece agora — <span class="green">grátis</span></h2>
-      <span class="free-badge">🚀 Primeira consulta grátis</span>
-      <form id="leadForm">
-        <div class="form-group">
-          <label>Seu nome</label>
-          <input type="text" id="nome" placeholder="Ex: João Silva" required>
-        </div>
-        <div class="form-group">
-          <label>WhatsApp</label>
-          <input type="tel" id="whatsapp" placeholder="(11) 99999-8888" required>
-        </div>
-        <div class="form-group">
-          <label>Melhor email</label>
-          <input type="email" id="email" placeholder="joao@email.com" required>
-        </div>
-        <button type="submit" class="btn-primary" id="submitBtn">QUERO MINHA CONSULTA GRÁTIS</button>
-      </form>
-      <div class="success-msg" id="successMsg">
-        <span class="check">✅</span>
-        Recebemos seus dados! Em instantes você receberá sua consulta grátis no WhatsApp 😉
-      </div>
-    </div>
+    <a href="https://t.me/puxadasdotiktok_bot" target="_blank" class="btn-hero">QUERO COMEÇAR</a>
   </section>
 
   <section>
     <h2>Como <span class="green">funciona</span></h2>
-    <p>3 passos simples para começar</p>
+    <p>Em apenas 4 passos simples</p>
     <div class="steps">
       <div class="step-card">
-        <div class="icon">📱</div>
+        <div class="icon">📋</div>
         <div class="num">1</div>
-        <h3>Preencha o formulário</h3>
-        <p>Seus dados para receber sua consulta grátis</p>
+        <h3>Escolha seu plano</h3>
+        <p>Selecione entre consulta avulsa (R$10) ou painel mensal (R$15)</p>
       </div>
       <div class="step-card">
-        <div class="icon">🤖</div>
+        <div class="icon">💳</div>
         <div class="num">2</div>
-        <h3>Entre no bot do Telegram</h3>
-        <p>Você receberá o link direto para começar</p>
+        <h3>Faça o pagamento</h3>
+        <p>Pague via Pix e envie o comprovante no bot do Telegram</p>
       </div>
       <div class="step-card">
-        <div class="icon">⚡</div>
+        <div class="icon">🔍</div>
         <div class="num">3</div>
-        <h3>Consulte em segundos</h3>
-        <p>Digite /cnpj 123... e veja o resultado na hora</p>
+        <h3>Receba o resultado</h3>
+        <p>No plano R$10 você recebe o PDF da consulta. No R$15, acesso ao painel completo</p>
+      </div>
+      <div class="step-card">
+        <div class="icon">💬</div>
+        <div class="num">4</div>
+        <h3>Suporte dedicado</h3>
+        <p>Tire dúvidas e faça novas consultas diretamente com nosso suporte no Telegram</p>
       </div>
     </div>
   </section>
@@ -411,39 +324,27 @@
     <p>Sem mensalidade. Pague por consulta ou desbloqueie tudo</p>
     <div class="plans">
       <div class="plan-card">
-        <h3>PUXADAS CNPJ</h3>
-        <div class="price"><span class="green">R$10</span> <small>/por consulta</small></div>
+        <h3>CONSULTA AVULSA</h3>
+        <div class="price"><span class="green">R$10</span></div>
         <ul>
-          <li>CNPJ completo (situação, endereço, CNAE)</li>
-          <li>CPF do próprio titular</li>
-          <li>Validação de identidade</li>
+          <li>Consulta de CNPJ completo</li>
+          <li>Score de crédito</li>
+          <li>Resultado enviado em PDF</li>
           <li>Suporte via Telegram</li>
         </ul>
         <a href="https://t.me/puxadasdotiktok_bot" target="_blank" class="btn-plan green">QUERO ESSE</a>
       </div>
 
       <div class="plan-card featured">
-        <h3>PUXADAS SCORE</h3>
-        <div class="price"><span class="green">R$15</span> <small>/por consulta</small></div>
+        <h3>PAINEL MENSAL</h3>
+        <div class="price"><span class="green">R$15</span></div>
         <ul>
-          <li>Tudo do plano CNPJ</li>
-          <li>Score de crédito completo</li>
-          <li>Histórico de consultas</li>
-          <li>Painel web incluso</li>
+          <li>Consultas ilimitadas por 30 dias</li>
+          <li>CNPJ, Score e validação de identidade</li>
+          <li>Painel web completo</li>
+          <li>Suporte prioritário</li>
         </ul>
         <a href="https://t.me/puxadasdotiktok_bot" target="_blank" class="btn-plan green">QUERO ESSE</a>
-      </div>
-
-      <div class="plan-card">
-        <h3>PUXADAS FULL</h3>
-        <div class="price"><span class="orange">R$25</span> <small>/acesso total</small></div>
-        <ul>
-          <li>Tudo dos planos anteriores</li>
-          <li>Consultas ilimitadas por 30 dias</li>
-          <li>Suporte prioritário</li>
-          <li>Relatórios em PDF</li>
-        </ul>
-        <a href="https://t.me/puxadasdotiktok_bot" target="_blank" class="btn-plan orange">QUERO ESSE</a>
       </div>
     </div>
   </section>
@@ -452,52 +353,5 @@
     <a href="https://t.me/puxadasdotiktok_bot" target="_blank">🤖 Ir para o @puxadasdotiktok_bot</a>
     <p>© 2026 Puxadas • Consultas rápidas pelo Telegram</p>
   </footer>
-
-  <script>
-    const TOKEN = '8831588018:AAH2MJHBRZadC8AahYP_8ySMDwA-o-rVaJw';
-    const CHAT_ID = '@puxadasdotiktok_bot';
-
-    document.getElementById('leadForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const btn = document.getElementById('submitBtn');
-      btn.disabled = true;
-      btn.textContent = 'ENVIANDO...';
-
-      const nome = document.getElementById('nome').value.trim();
-      const whatsapp = document.getElementById('whatsapp').value.trim();
-      const email = document.getElementById('email').value.trim();
-
-      const msg = `🆕 *NOVO LEAD PUXADAS*\n\n👤 Nome: ${nome}\n📱 WhatsApp: ${whatsapp}\n📧 Email: ${email}`;
-
-      try {
-        const resp = await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: CHAT_ID,
-            text: msg,
-            parse_mode: 'Markdown'
-          })
-        });
-
-        if (resp.ok) {
-          document.getElementById('formBox').innerHTML = `
-            <div class="success-msg" style="display:block">
-              <span class="check">✅</span>
-              Recebemos seus dados! Em instantes você receberá sua consulta grátis no WhatsApp 😉
-            </div>
-          `;
-        } else {
-          alert('Erro ao enviar. Tente novamente ou me chame direto no Telegram.');
-          btn.disabled = false;
-          btn.textContent = 'QUERO MINHA CONSULTA GRÁTIS';
-        }
-      } catch(err) {
-        alert('Erro de conexão. Verifique sua internet e tente de novo.');
-        btn.disabled = false;
-        btn.textContent = 'QUERO MINHA CONSULTA GRÁTIS';
-      }
-    });
-  </script>
 </body>
 </html>
